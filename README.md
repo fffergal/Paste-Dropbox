@@ -13,5 +13,4 @@ License
 
 Provied under the terms of the Eclipse Public License. See [Paste Dropbox.app/Contents/Resources/License.txt][github_epl].
 
-    [github_epl]: http://github.com/FerHai/Paste-Dropbox/blob/master/Paste Dropbox.app/Contents/Resources/License.txt
-
+[github_epl]: https://github.com/Riprock/Paste-Dropbox/blob/master/Paste%20Dropbox.app/Contents/Resources/License.txt
