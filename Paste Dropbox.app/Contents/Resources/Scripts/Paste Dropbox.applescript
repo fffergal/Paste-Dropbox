@@ -16,11 +16,21 @@ end clipboardType
 
 on clipboardData(theType)
 	set clip to the clipboard as theType
-	if theType as text is not "furl" then
-		return clip
-	else
+	if theType as text is "furl" then
 		set theFile to open for access clip
 		return read theFile as data
+	else if (theType as text is "RTF ") then
+		set tmpuuid to do shell script "uuidgen"
+		set theFile to (open for access ("/tmp/" & tmpuuid) with write permission)
+		write clip to theFile
+		close access theFile
+		set html to do shell script "textutil -convert html /tmp/" & tmpuuid & "  -stdout"
+		tell application "System Events"
+			delete file ("/tmp/" & tmpuuid)
+		end tell
+		return html
+	else
+		return clip
 	end if
 end clipboardData
 
@@ -34,7 +44,7 @@ end list_position
 on clipboardExtension(theType)
 	set theType to theType as text
 	set staticTypes to {"PNGf", "RTF ", "utf8"}
-	set staticExtensions to {".png", ".rtf", ".txt"}
+	set staticExtensions to {".png", ".html", ".txt"}
 	if staticTypes contains theType then
 		return item (list_position(theType, staticTypes)) of staticExtensions
 	else if theType is equal to "furl" then
